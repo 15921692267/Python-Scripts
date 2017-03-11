@@ -10,11 +10,11 @@ import ConfigParser
 import os,sys
 
 def sendMail(text):
-    host = "smtp.qq.com"        #定义smtp主机
+    host = "smtp.xxx.com"        #定义smtp主机
     subject = "redisMonitor"      #定义邮件主题
-    to_mail = "alert@loongtao.com"      #邮件收件人
-    from_email = "monitor@loongtao.com "     #邮件发件人
-    password = "lucky2013"          #邮件发件人邮箱密码
+    to_mail = "xxx@163.com"      #邮件收件人
+    from_email = "monitor@xxx.com"     #邮件发件人
+    password = "xxx"          #邮件发件人邮箱密码
     body = string.join((        #组装sendmail方法的邮件主题内容，各段以"\r\n"进行分割
             "From: %s" % from_email,
             "To: %s" % to_mail,

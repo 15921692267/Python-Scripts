@@ -16,7 +16,7 @@ if len(sys.argv)-1 != 3:
     print("Usage1: %s {app_slb|wap_slb|pc_slb} <instance_name> <weight>" % script_name)
     # print("Usage2: %s {app_slb|site_slb} <instance_name1,instance_name2> <weight>" % script_name)
     print("Example: %s pc_slb web-api_01 0" % script_name)
-    sys.exit()
+    sys.exit(2)
 
 app_slb = {'app_01':'i-xxx', 'app_02':'i-xxx'}
 wap_slb = {'wap_01':'i-xxx', 'wap_02':'i-xxx'}
@@ -30,10 +30,10 @@ def slbID():
     elif slb_id == "wap_slb":
         slb_id = 'lb-id2'
     elif slb_id == "pc_slb":
-        slb_id == "lb-id3"
+        slb_id = "lb-id3"
     else:
         print("SLB %s not exist!" % slb_id)
-        sys.exit()
+        sys.exit(2)
     return str(slb_id)
 
 # 要执行的操作，是一个数组格式。例如：[{"ServerId":"vm-233","Weight":"0"},{"ServerId":"vm-234","Weight":"0"}]
@@ -47,19 +47,19 @@ def actionValueString():
                 instance_id = app_slb[instance_name]
             else:
                 print("The instance %s in SLB app-slb Backend server not exist!" % instance_name)
-                sys.exit()
+                sys.exit(2)
         elif slbID() == "lb-id2":
             if wap_slb.has_key(instance_name):
                 instance_id = wap_slb[instance_name]
             else:
                 print("The instance %s in SLB wap-slb Backend server not exist!" % instance_name)
-                sys.exit()
+                sys.exit(2)
         elif slbID() == "lb-id3":
             if pc_slb.has_key(instance_name):
                 instance_id = pc_slb[instance_name]
             else:
                 print("The instance %s in SLB pc-slb Backend server not exist!" % instance_name)
-                sys.exit()
+                sys.exit(2)
         lst.append({'ServerId': '%s' % instance_id, 'Weight': '%s' % weight})
     return str(lst)
 
@@ -134,5 +134,6 @@ if __name__ == '__main__':
     if "Code" in result:
         print("权重值设置失败！")
         print(result)
+        sys.exit(2)
     else:
         print("权重值修改成功.")
